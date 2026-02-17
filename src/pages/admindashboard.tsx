@@ -1,9 +1,46 @@
 import React from "react";
 import { useState } from "react";
-
+import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 export default function AdminDashboard() {
   const [AdminDashboard, setAdminDashboard] = useState("admin");
+  let [isOpen, setIsOpen] = useState(true);
+
+  function open() {
+    setIsOpen(true);
+  }
+
+  function close() {
+    setIsOpen(false);
+  }
+
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function openEdit() {
+    setIsEditOpen(true);
+  }
+
+  function closeEdit() {
+    setIsEditOpen(false);
+  }
+
+  function openMenu() {
+    setIsMenuOpen(true);
+  }
+
+  function closeMenu() {
+    setIsMenuOpen(false);
+  }
+
+  const [Worker, setWorker] = useState(false);
+  function addworker() {
+    setWorker(true);
+  }
+
+  function closeworker() {
+    setWorker(false);
+  }
   return (
     // Main Page Wrapper
     <div className="bg-[#f6f8f7] min-h-screen font-sans text-[#121614]">
@@ -100,10 +137,7 @@ export default function AdminDashboard() {
                 <span className="material-symbols-outlined">settings</span>
                 <p className="text-sm">System Settings</p>
               </a>
-              <a
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors"
-                href="#"
-              >
+              <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-red-600 hover:bg-red-50 transition-colors">
                 <span className="material-symbols-outlined">logout</span>
                 <p className="text-sm font-medium">Log Out</p>
               </a>
@@ -151,14 +185,264 @@ export default function AdminDashboard() {
                   </span>
                   Generate Report
                 </button>
-                <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#121614] border border-[#dde3e0] font-bold text-sm rounded-lg hover:bg-gray-50 transition-colors shadow-sm">
+                <Button
+                  onClick={addworker}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-white text-[#121614] border border-[#dde3e0] font-bold text-sm rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
+                >
                   <span className="material-symbols-outlined text-lg">
                     person_add
                   </span>
                   Add New Worker
-                </button>
+                </Button>
               </div>
             </div>
+
+            <Dialog
+              open={Worker}
+              as="div"
+              className="relative z-50 focus:outline-none"
+              onClose={closeworker}
+            >
+              {/* Backdrop */}
+              <div
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out data-closed:opacity-0"
+                aria-hidden="true"
+              />
+
+              {/* Scrollable Container */}
+              <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div className="flex min-h-full items-center justify-center p-4">
+                  {/* Main Panel */}
+                  <DialogPanel
+                    transition
+                    className="relative w-full max-w-2xl rounded-xl bg-white shadow-2xl duration-300 ease-out data-closed:scale-95 data-closed:opacity-0 overflow-hidden"
+                  >
+                    {/* MODAL HEADER */}
+                    <div className="px-8 pt-8 pb-6 flex justify-between items-start border-b border-primary/10 bg-white">
+                      <div>
+                        <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                          <span className="material-symbols-outlined text-primary">
+                            person_add
+                          </span>
+                          Add New Municipal Worker
+                        </h2>
+                        <p className="text-neutral-gray mt-1 text-sm">
+                          Fill in the details below to create a new worker
+                          account on the Smart Waste Platform.
+                        </p>
+                      </div>
+                      <button
+                        onClick={closeworker}
+                        className="text-neutral-gray hover:text-primary transition-colors p-1 rounded-full hover:bg-primary/10"
+                      >
+                        <span className="material-symbols-outlined">close</span>
+                      </button>
+                    </div>
+
+                    {/* MODAL CONTENT FORM */}
+                    <form className="px-8 py-6 space-y-8 max-h-[60vh] overflow-y-auto bg-white relative z-10">
+                      {/* 1. PERSONAL INFORMATION SECTION */}
+                      <section className="space-y-4">
+                        <div className="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider">
+                          <span className="material-icons text-lg">badge</span>
+                          Personal Information
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Full Name */}
+                          <div className="space-y-1.5 md:col-span-2">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Full Name
+                            </label>
+                            <input
+                              className="w-full px-4 py-2 rounded-lg border border-primary/20 bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                              placeholder="e.g. Johnathan Smith"
+                              type="text"
+                            />
+                          </div>
+
+                          {/* Email */}
+                          <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Email Address
+                            </label>
+                            <div className="relative">
+                              <span className="material-symbols-outlined absolute left-3 top-2.5 text-neutral-gray text-lg">
+                                mail
+                              </span>
+                              <input
+                                className="w-full pl-10 pr-4 py-2 rounded-lg border border-primary/20 bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                                placeholder="john.s@municipality.gov"
+                                type="email"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Phone */}
+                          <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Phone Number
+                            </label>
+                            <div className="relative">
+                              <span className="material-symbols-outlined absolute left-3 top-2.5 text-neutral-gray text-lg">
+                                phone
+                              </span>
+                              <input
+                                className="w-full pl-10 pr-4 py-2 rounded-lg border border-primary/20 bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                                placeholder="+1 (555) 000-0000"
+                                type="tel"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+
+                      <hr className="border-primary/5" />
+
+                      {/* 2. OFFICIAL ASSIGNMENT SECTION */}
+                      <section className="space-y-4">
+                        <div className="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider">
+                          <span className="material-symbols-outlined text-lg">
+                            assignment
+                          </span>
+                          Official Assignment
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Zone Select */}
+                          <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Zone
+                            </label>
+                            <select className="w-full px-4 py-2 rounded-lg border border-primary/20 bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none">
+                              <option value="">Select Zone</option>
+                              <option value="A">Zone A - Downtown</option>
+                              <option value="B">Zone B - North Suburbs</option>
+                              <option value="C">
+                                Zone C - Industrial Park
+                              </option>
+                              <option value="D">Zone D - South District</option>
+                            </select>
+                          </div>
+
+                          {/* Vehicle Number */}
+                          <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Vehicle Number
+                            </label>
+                            <div className="relative">
+                              <span className="material-symbols-outlined absolute left-3 top-2.5 text-neutral-gray text-lg">
+                                local_shipping
+                              </span>
+                              <input
+                                className="w-full pl-10 pr-4 py-2 rounded-lg border border-primary/20 bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                                placeholder="e.g. TRK-204"
+                                type="text"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Account Status */}
+                          <div className="space-y-1.5 md:col-span-2">
+                            <label className="block text-sm font-medium text-slate-700 mb-2">
+                              Account Status
+                            </label>
+                            <div className="flex items-center gap-4">
+                              <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                  defaultChecked
+                                  className="sr-only peer"
+                                  type="checkbox"
+                                />
+                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                <span className="ml-3 text-sm font-medium text-slate-600">
+                                  Worker is active
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+
+                      <hr className="border-primary/5" />
+
+                      {/* 3. LOGIN CREDENTIALS SECTION */}
+                      <section className="space-y-4">
+                        <div className="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider">
+                          <span className="material-symbols-outlined text-lg">lock</span>
+                          Login Credentials
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Username */}
+                          <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Username/ID
+                            </label>
+                            <input
+                              className="w-full px-4 py-2 rounded-lg border border-primary/20 bg-primary/5 text-primary font-medium focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                              disabled
+                              placeholder="WM-2024-XXXX"
+                              type="text"
+                              defaultValue="MW-AUTO-092"
+                            />
+                            <p className="text-[10px] text-neutral-gray italic">
+                              Auto-generated based on municipal pattern.
+                            </p>
+                          </div>
+
+                          {/* Password */}
+                          <div className="space-y-1.5">
+                            <label className="block text-sm font-medium text-slate-700">
+                              Temporary Password
+                            </label>
+                            <div className="relative">
+                              <input
+                                className="w-full px-4 py-2 rounded-lg border border-primary/20 bg-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                                placeholder="••••••••"
+                                type="password"
+                              />
+                              <button
+                                className="absolute right-3 top-2.5 text-neutral-gray hover:text-primary"
+                                type="button"
+                              >
+                                <span className="material-symbols-outlined text-lg">
+                                  visibility
+                                </span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </form>
+
+                    {/* MODAL FOOTER */}
+                    <div className="px-8 py-6 bg-primary/5 flex flex-col sm:flex-row justify-end gap-3 border-t border-primary/10 relative z-10">
+                      <button
+                        onClick={closeworker}
+                        className="px-6 py-2.5 rounded-lg border border-neutral-gray text-neutral-gray font-semibold hover:bg-neutral-gray hover:text-white transition-all order-2 sm:order-1"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="px-8 py-2.5 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 shadow-md shadow-primary/20 transition-all flex items-center justify-center gap-2 order-1 sm:order-2"
+                        type="submit"
+                      >
+                        <span className="material-symbols-outlined text-sm">
+                          person_add
+                        </span>
+                        Create Worker
+                      </button>
+                    </div>
+
+                    {/* Decorative Background Visuals (Now correctly contained within panel) */}
+                    <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none z-0"></div>
+                    <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none z-0"></div>
+                  </DialogPanel>
+                </div>
+              </div>
+            </Dialog>
 
             {/* // Stats Cards Section */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -523,28 +807,16 @@ export default function AdminDashboard() {
               {/* Tabs */}
               <div className="mb-6 bg-white rounded-xl shadow-sm border border-[#e5e7eb]">
                 <div className="flex border-b border-[#dde3e0] px-4">
-                  <a
-                    className="flex items-center justify-center border-b-[3px] border-[#2e8a57] text-[#2e8a57] px-6 py-4"
-                    href="#"
-                  >
+                  <a className="flex items-center justify-center border-b-[3px] border-[#2e8a57] text-[#2e8a57] px-6 py-4">
                     <p className="text-sm font-bold">All</p>
                   </a>
-                  <a
-                    className="flex items-center justify-center border-b-[3px] border-transparent text-[#6a8174] px-6 py-4 hover:bg-[#f1f4f2]/50 transition-colors"
-                    href="#"
-                  >
+                  <a className="flex items-center justify-center border-b-[3px] border-transparent text-[#6a8174] px-6 py-4 hover:bg-[#f1f4f2]/50 transition-colors">
                     <p className="text-sm font-bold">⚠️ Pending (12)</p>
                   </a>
-                  <a
-                    className="flex items-center justify-center border-b-[3px] border-transparent text-[#6a8174] px-6 py-4 hover:bg-[#f1f4f2]/50 transition-colors"
-                    href="#"
-                  >
+                  <a className="flex items-center justify-center border-b-[3px] border-transparent text-[#6a8174] px-6 py-4 hover:bg-[#f1f4f2]/50 transition-colors">
                     <p className="text-sm font-bold">🔄 Assigned</p>
                   </a>
-                  <a
-                    className="flex items-center justify-center border-b-[3px] border-transparent text-[#6a8174] px-6 py-4 hover:bg-[#f1f4f2]/50 transition-colors"
-                    href="#"
-                  >
+                  <a className="flex items-center justify-center border-b-[3px] border-transparent text-[#6a8174] px-6 py-4 hover:bg-[#f1f4f2]/50 transition-colors">
                     <p className="text-sm font-bold">✅ Completed</p>
                   </a>
                 </div>
@@ -604,7 +876,7 @@ export default function AdminDashboard() {
               <div className="mb-4 bg-[#2e8a57]/10 border border-[#2e8a57]/20 rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <span className="text-sm font-bold text-[#2e8a57]">
-                    2 requests selected
+                    1 requests selected
                   </span>
                   <div className="h-6 w-px bg-[#2e8a57]/20"></div>
                   <div className="flex items-center gap-2">
@@ -684,9 +956,12 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="p-4 text-right">
-                        <button className="bg-[#2e8a57] text-white text-xs font-bold px-3 py-1.5 rounded-lg">
+                        <Button
+                          onClick={open}
+                          className="bg-[#2e8a57] text-white text-xs font-bold px-3 py-1.5 rounded-lg"
+                        >
                           Manage
-                        </button>
+                        </Button>
                       </td>
                     </tr>
 
@@ -715,17 +990,19 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="p-4 text-right">
-                        <button className="border border-gray-200 text-[#121614] text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-50">
+                        <Button
+                          onClick={open}
+                          className="border border-gray-200 text-[#121614] text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-50"
+                        >
                           Manage
-                        </button>
+                        </Button>
                       </td>
                     </tr>
 
                     {/* Row 3 Selected */}
-                    <tr className="bg-[#2e8a57]/5 hover:bg-[#2e8a57]/10 transition-colors">
+                    <tr className=" hover:bg-[#2e8a57]/10 transition-colors">
                       <td className="p-4">
                         <input
-                          defaultChecked
                           className="rounded border-gray-300 text-[#2e8a57] focus:ring-[#2e8a57]"
                           type="checkbox"
                         />
@@ -747,9 +1024,12 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="p-4 text-right">
-                        <button className="border border-gray-200 text-[#121614] text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-50">
+                        <Button
+                          onClick={open}
+                          className="border border-gray-200 text-[#121614] text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-50"
+                        >
                           Manage
-                        </button>
+                        </Button>
                       </td>
                     </tr>
 
@@ -778,9 +1058,12 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="p-4 text-right">
-                        <button className="border border-gray-200 text-[#121614] text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-50">
+                        <Button
+                          onClick={open}
+                          className="border border-gray-200 text-[#121614] text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-gray-50"
+                        >
                           Manage
-                        </button>
+                        </Button>
                       </td>
                     </tr>
                   </tbody>
@@ -835,121 +1118,149 @@ export default function AdminDashboard() {
             </div>
 
             {/* // INDIVIDUAL REQUEST DRAWER (FIXED OVERLAY) */}
-            <div className="absolute top-11 right-0 h-full w-100 bg-white shadow-2xl border-l border-[#e5e7eb] flex flex-col z-30 transform transition-transform">
-              <div className="p-6 border-b border-[#e5e7eb] flex justify-between items-center">
-                <div>
-                  <h2 className="text-xl font-black">Manage Request</h2>
-                  <p className="text-[#2e8a57] font-bold text-sm">#REQ-1023</p>
-                </div>
-                <button className="size-8 rounded-full hover:bg-gray-100 flex items-center justify-center">
-                  <span className="material-symbols-outlined">close</span>
-                </button>
-              </div>
+            <Dialog open={isOpen} onClose={close} className="relative z-50">
+              <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
 
-              <div className="flex-1 overflow-y-auto p-6 space-y-8">
-                {/* Citizen Details */}
-                <section>
-                  <h3 className="text-xs font-bold text-[#6a8174] uppercase tracking-widest mb-4">
-                    Citizen Information
-                  </h3>
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="size-12 rounded-lg bg-gray-100 flex items-center justify-center font-bold text-lg text-[#2e8a57]">
-                      DC
-                    </div>
-                    <div>
-                      <p className="font-bold">David Chen</p>
-                      <p className="text-sm text-[#6a8174]">
-                        +1 (555) 012-3456
-                      </p>
-                    </div>
-                  </div>
-                  <div className="bg-[#f6f8f7] p-3 rounded-lg border border-[#dde3e0]">
-                    <p className="text-xs text-[#6a8174] mb-1">
-                      Pickup Location
-                    </p>
-                    <p className="text-sm font-medium">
-                      122 Oak Street, Apt 4B, North Zone, City Center 90210
-                    </p>
-                  </div>
-                </section>
-
-                {/* Waste Photo & Comments */}
-                <section>
-                  <h3 className="text-xs font-bold text-[#6a8174] uppercase tracking-widest mb-4">
-                    Waste Verification
-                  </h3>
-                  <div
-                    className="aspect-video w-full rounded-lg bg-gray-200 mb-3 bg-cover bg-center overflow-hidden border border-gray-200"
-                    style={{
-                      backgroundImage:
-                        'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYtVl6FcUiUTqJ7GKwtj3comtEm28Dj_OLwtndpvplhqD1RsgiUrC3v8oaySKJGFuyUDylvTJrnRdWSfXhOnMXSRiA183Pm6-l1sFXpnF9C2FQmSo8ZgI6TlmXmVc4Ze675FrxZS3TiFuh9aLPmR-6f8rtNa-UtfpUKpUWGYR9_Rz2SJGtaQbsTIAAhlqNoOqIvIQFiGDa-yuvMcnLs9KKrUGLtvDdLIDJf3umTxviEZSj_Xgb2JQPsYexQLYgnRgWSDxtHTES")',
-                    }}
-                  >
-                    <div className="w-full h-full bg-black/20 flex items-end p-3">
-                      <button className="bg-white/90 backdrop-blur text-[10px] font-bold px-2 py-1 rounded shadow flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[12px]">
-                          zoom_in
-                        </span>
-                        Enlarge Photo
-                      </button>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 italic">
-                    "Large cardboard boxes from furniture delivery. All
-                    flattened and ready."
-                  </p>
-                </section>
-
-                {/* Assignment Tools */}
-                <section className="space-y-4">
-                  <h3 className="text-xs font-bold text-[#6a8174] uppercase tracking-widest">
-                    Assignment Tools
-                  </h3>
-                  <div>
-                    <label className="block text-sm font-bold mb-2">
-                      Assign to Worker
-                    </label>
-                    <select className="w-full border-[#dde3e0] rounded-lg text-sm h-11 focus:ring-[#2e8a57] focus:border-[#2e8a57]">
-                      <option>Select available worker...</option>
-                      <option>🟢 John Doe (2.4km away)</option>
-                      <option>🟢 Sarah Connor (3.1km away)</option>
-                      <option>🟡 Mike Ross (On break)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold mb-2">
-                      Select Route
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button className="border-2 border-[#2e8a57] bg-[#2e8a57]/5 rounded-lg py-3 flex flex-col items-center gap-1 transition-all">
-                        <span className="text-2xl">♻️</span>
-                        <span className="text-xs font-bold text-[#2e8a57]">
-                          Recycling
-                        </span>
-                      </button>
-                      <button className="border-2 border-gray-100 rounded-lg py-3 flex flex-col items-center gap-1 hover:border-gray-200 transition-all">
-                        <span className="text-2xl opacity-40 grayscale">
-                          🗑️
-                        </span>
-                        <span className="text-xs font-bold text-gray-400">
-                          Landfill
+              {/* DRAWER CONTAINER */}
+              <div className="fixed inset-0 flex justify-end">
+                <DialogPanel
+                  transition
+                  className="
+              w-96
+              bg-white
+              h-full
+              shadow-2xl
+              flex
+              flex-col
+              transform
+              transition
+              duration-300
+              ease-in-out
+              data-closed:translate-x-full
+            "
+                >
+                  <div className="absolute right-0 h-full w-100 bg-white shadow-2xl border-l border-[#e5e7eb] flex flex-col z-30 transform transition-transform">
+                    <div className="p-6 border-b border-[#e5e7eb] flex justify-between items-center">
+                      <div>
+                        <h2 className="text-xl font-black">Manage Request</h2>
+                        <p className="text-[#2e8a57] font-bold text-sm">
+                          #REQ-1023
+                        </p>
+                      </div>
+                      <button className="size-8 rounded-full hover:bg-gray-100 flex items-center justify-center">
+                        <span
+                          onClick={close}
+                          className="material-symbols-outlined"
+                        >
+                          close
                         </span>
                       </button>
                     </div>
-                  </div>
-                </section>
-              </div>
 
-              {/* Drawer Footer Actions */}
-              <div className="p-6 border-t border-[#e5e7eb] space-y-3">
-                <button className="w-full bg-[#2e8a57] text-white font-black py-4 rounded-xl shadow-lg shadow-[#2e8a57]/20 hover:bg-opacity-95 transition-all">
-                  Approve & Assign
-                </button>
-                <button className="w-full border border-red-500 text-red-600 font-bold py-3 rounded-xl hover:bg-red-50 transition-all text-sm">
-                  Reject Request
-                </button>
+                    <div className="flex-1 overflow-y-auto p-6 space-y-8">
+                      <section>
+                        <h3 className="text-xs font-bold text-[#6a8174] uppercase tracking-widest mb-4">
+                          Citizen Information
+                        </h3>
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className="size-12 rounded-lg bg-gray-100 flex items-center justify-center font-bold text-lg text-[#2e8a57]">
+                            DC
+                          </div>
+                          <div>
+                            <p className="font-bold">David Chen</p>
+                            <p className="text-sm text-[#6a8174]">
+                              +1 (555) 012-3456
+                            </p>
+                          </div>
+                        </div>
+                        <div className="bg-[#f6f8f7] p-3 rounded-lg border border-[#dde3e0]">
+                          <p className="text-xs text-[#6a8174] mb-1">
+                            Pickup Location
+                          </p>
+                          <p className="text-sm font-medium">
+                            122 Oak Street, Apt 4B, North Zone, City Center
+                            90210
+                          </p>
+                        </div>
+                      </section>
+
+                      <section>
+                        <h3 className="text-xs font-bold text-[#6a8174] uppercase tracking-widest mb-4">
+                          Waste Verification
+                        </h3>
+                        <div
+                          className="aspect-video w-full rounded-lg bg-gray-200 mb-3 bg-cover bg-center overflow-hidden border border-gray-200"
+                          style={{
+                            backgroundImage:
+                              'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYtVl6FcUiUTqJ7GKwtj3comtEm28Dj_OLwtndpvplhqD1RsgiUrC3v8oaySKJGFuyUDylvTJrnRdWSfXhOnMXSRiA183Pm6-l1sFXpnF9C2FQmSo8ZgI6TlmXmVc4Ze675FrxZS3TiFuh9aLPmR-6f8rtNa-UtfpUKpUWGYR9_Rz2SJGtaQbsTIAAhlqNoOqIvIQFiGDa-yuvMcnLs9KKrUGLtvDdLIDJf3umTxviEZSj_Xgb2JQPsYexQLYgnRgWSDxtHTES")',
+                          }}
+                        >
+                          <div className="w-full h-full bg-black/20 flex items-end p-3">
+                            <button className="bg-white/90 backdrop-blur text-[10px] font-bold px-2 py-1 rounded shadow flex items-center gap-1">
+                              <span className="material-symbols-outlined text-[12px]">
+                                zoom_in
+                              </span>
+                              Enlarge Photo
+                            </button>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-600 italic">
+                          "Large cardboard boxes from furniture delivery. All
+                          flattened and ready."
+                        </p>
+                      </section>
+
+                      <section className="space-y-4">
+                        <h3 className="text-xs font-bold text-[#6a8174] uppercase tracking-widest">
+                          Assignment Tools
+                        </h3>
+                        <div>
+                          <label className="block text-sm font-bold mb-2">
+                            Assign to Worker
+                          </label>
+                          <select className="w-full border-[#dde3e0] rounded-lg text-sm h-11 focus:ring-[#2e8a57] focus:border-[#2e8a57]">
+                            <option>Select available worker...</option>
+                            <option>🟢 John Doe (2.4km away)</option>
+                            <option>🟢 Sarah Connor (3.1km away)</option>
+                            <option>🟡 Mike Ross (On break)</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-bold mb-2">
+                            Select Route
+                          </label>
+                          <div className="grid grid-cols-2 gap-2">
+                            <button className="border-2 border-[#2e8a57] bg-[#2e8a57]/5 rounded-lg py-3 flex flex-col items-center gap-1 transition-all">
+                              <span className="text-2xl">♻️</span>
+                              <span className="text-xs font-bold text-[#2e8a57]">
+                                Recycling
+                              </span>
+                            </button>
+                            <button className="border-2 border-gray-100 rounded-lg py-3 flex flex-col items-center gap-1 hover:border-gray-200 transition-all">
+                              <span className="text-2xl opacity-40 grayscale">
+                                🗑️
+                              </span>
+                              <span className="text-xs font-bold text-gray-400">
+                                Landfill
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+
+                    <div className="p-6 border-t border-[#e5e7eb] space-y-3">
+                      <button className="w-full bg-[#2e8a57] text-white font-black py-4 rounded-xl shadow-lg shadow-[#2e8a57]/20 hover:bg-opacity-95 transition-all">
+                        Approve & Assign
+                      </button>
+                      <button className="w-full border border-red-500 text-red-600 font-bold py-3 rounded-xl hover:bg-red-50 transition-all text-sm">
+                        Reject Request
+                      </button>
+                    </div>
+                  </div>
+                </DialogPanel>
               </div>
-            </div>
+            </Dialog>
           </main>
         )}
         {AdminDashboard === "worker" && (
@@ -1104,14 +1415,44 @@ export default function AdminDashboard() {
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-2">
                               <button className="p-1.5 text-gray-400 hover:text-primary transition-colors">
-                                <span className="material-symbols-outlined text-xl">
+                                <Button
+                                  onClick={openEdit}
+                                  className="material-symbols-outlined text-xl"
+                                >
                                   edit
-                                </span>
+                                </Button>
                               </button>
                               <button className="p-1.5 text-gray-400 hover:text-gray-600 transition-colors">
-                                <span className="material-symbols-outlined text-xl">
+                                <Button
+                                  onClick={openMenu}
+                                  className="material-symbols-outlined text-xl"
+                                >
                                   more_vert
-                                </span>
+                                </Button>
+                                <Dialog
+                                  open={isMenuOpen}
+                                  as="div"
+                                  className="relative z-10 focus:outline-none"
+                                  onClose={closeMenu}
+                                >
+                                  <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                    <div className="flex min-h-full items-center justify-center p-4">
+                                      <DialogPanel
+                                        transition
+                                        className=" rounded-xl p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
+                                      >
+                                        <div className="mt-4">
+                                          <Button
+                                            className="inline-flex items-center gap-2 rounded-md bg-gray-700 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:not-data-focus:outline-none data-focus:outline data-focus:outline-white data-hover:bg-gray-600 data-open:bg-gray-700"
+                                            onClick={close}
+                                          >
+                                            Delete Worker
+                                          </Button>
+                                        </div>
+                                      </DialogPanel>
+                                    </div>
+                                  </div>
+                                </Dialog>
                               </button>
                             </div>
                           </td>
@@ -1159,14 +1500,20 @@ export default function AdminDashboard() {
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-2">
                               <button className="p-1.5 text-gray-400 hover:text-primary transition-colors">
-                                <span className="material-symbols-outlined text-xl">
+                                <Button
+                                  onClick={openEdit}
+                                  className="material-symbols-outlined text-xl"
+                                >
                                   edit
-                                </span>
+                                </Button>
                               </button>
                               <button className="p-1.5 text-gray-400 hover:text-gray-600 transition-colors">
-                                <span className="material-symbols-outlined text-xl">
+                                <Button
+                                  onClick={openMenu}
+                                  className="material-symbols-outlined text-xl"
+                                >
                                   more_vert
-                                </span>
+                                </Button>
                               </button>
                             </div>
                           </td>
@@ -1214,14 +1561,20 @@ export default function AdminDashboard() {
                           <td className="px-6 py-4">
                             <div className="flex items-center gap-2">
                               <button className="p-1.5 text-gray-400 hover:text-primary transition-colors">
-                                <span className="material-symbols-outlined text-xl">
+                                <Button
+                                  onClick={openEdit}
+                                  className="material-symbols-outlined text-xl"
+                                >
                                   edit
-                                </span>
+                                </Button>
                               </button>
                               <button className="p-1.5 text-gray-400 hover:text-gray-600 transition-colors">
-                                <span className="material-symbols-outlined text-xl">
+                                <Button
+                                  onClick={openMenu}
+                                  className="material-symbols-outlined text-xl"
+                                >
                                   more_vert
-                                </span>
+                                </Button>
                               </button>
                             </div>
                           </td>
@@ -1245,144 +1598,181 @@ export default function AdminDashboard() {
                 </div>
               </div>
             </main>
-            <aside className="w-96 shrink-0 border-l border-[#dde3e0] bg-white flex flex-col h-full shadow-2xl relative z-10">
-              <div className="p-6 border-b border-[#dde3e0] flex items-center justify-between">
-                <div>
-                  <h2 className="text-[#121614] text-lg font-bold">
-                    Manage Worker
-                  </h2>
-                  <p className="text-sm text-primary font-bold">
-                    Ali Raza (W-07)
-                  </p>
-                </div>
-                <button className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-all">
-                  <span className="material-symbols-outlined">close</span>
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto p-6 space-y-8">
-                {/* Section 1: Official Assignment */}
-                <section className="space-y-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="material-symbols-outlined text-gray-400 text-sm">
-                      badge
-                    </span>
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">
-                      Official Assignment
-                    </h3>
+
+            <Dialog
+              open={isEditOpen}
+              as="div"
+              onClose={closeEdit}
+              className="relative z-50"
+            >
+              {/* BACKDROP */}
+              <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
+
+              {/* DRAWER CONTAINER */}
+              <div className="fixed inset-0 flex justify-end">
+                <DialogPanel
+                  transition
+                  className="
+              w-96
+              bg-white
+              h-full
+              shadow-2xl
+              flex
+              flex-col
+              transform
+              transition
+              duration-300
+              ease-in-out
+              data-closed:translate-x-full
+            "
+                >
+                  <div className="p-6 border-b border-[#dde3e0] flex items-center justify-between">
+                    <div>
+                      <h2 className="text-[#121614] text-lg font-bold">
+                        Manage Worker
+                      </h2>
+                      <p className="text-sm text-primary font-bold">
+                        Ali Raza (W-07)
+                      </p>
+                    </div>
+                    <button className=" text-gray-400 hover:text-gray-600 rounded-full transition-all">
+                      <span
+                        onClick={closeEdit}
+                        className="material-symbols-outlined"
+                      >
+                        close
+                      </span>
+                    </button>
                   </div>
-                  <div className="space-y-4">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-bold text-gray-600">
-                        Assigned Zone
-                      </label>
-                      <div className="relative">
-                        <select className="w-full h-10 pl-3 pr-10 rounded-lg bg-background-light border-none text-sm font-medium focus:ring-2 focus:ring-primary/50 appearance-none">
-                          <option>Zone 4 (Central)</option>
-                          <option>Zone 1 (South)</option>
-                          <option>Zone 2 (North)</option>
-                        </select>
-                        <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                          unfold_more
+                  <div className="flex-1 overflow-y-auto p-6 space-y-8">
+                    <section className="space-y-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="material-symbols-outlined text-gray-400 text-sm">
+                          badge
                         </span>
+                        <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">
+                          Official Assignment
+                        </h3>
                       </div>
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-xs font-bold text-gray-600">
-                        Vehicle No.
-                      </label>
-                      <input
-                        className="w-full h-10 px-3 rounded-lg bg-background-light border-none text-sm font-medium focus:ring-2 focus:ring-primary/50"
-                        type="text"
-                        defaultValue="ABC-1234"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-background-light rounded-lg">
-                      <div>
-                        <p className="text-sm font-bold text-gray-700">
-                          Account Status
-                        </p>
-                        <p className="text-[10px] text-gray-500">
-                          Toggle worker active/inactive
-                        </p>
+                      <div className="space-y-4">
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-bold text-gray-600">
+                            Assigned Zone
+                          </label>
+                          <div className="relative">
+                            <select className="w-full h-10 pl-3 pr-10 rounded-lg bg-background-light border-none text-sm font-medium focus:ring-2 focus:ring-primary/50 appearance-none">
+                              <option>Zone 4 (Central)</option>
+                              <option>Zone 1 (South)</option>
+                              <option>Zone 2 (North)</option>
+                            </select>
+                            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                              unfold_more
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-xs font-bold text-gray-600">
+                            Vehicle No.
+                          </label>
+                          <input
+                            className="w-full h-10 px-3 rounded-lg bg-background-light border-none text-sm font-medium focus:ring-2 focus:ring-primary/50"
+                            type="text"
+                            defaultValue="ABC-1234"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-background-light rounded-lg">
+                          <div>
+                            <p className="text-sm font-bold text-gray-700">
+                              Account Status
+                            </p>
+                            <p className="text-[10px] text-gray-500">
+                              Toggle worker active/inactive
+                            </p>
+                          </div>
+                          <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-primary cursor-pointer">
+                            <span className="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-white transition shadow-sm"></span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-primary cursor-pointer">
-                        <span className="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-white transition shadow-sm"></span>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                {/* Section 2: Performance Details */}
-                <section className="space-y-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="material-symbols-outlined text-gray-400 text-sm">
-                      trending_up
-                    </span>
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">
-                      Performance &amp; Details
-                    </h3>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-3 bg-gray-50 rounded-lg border border-[#dde3e0]">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase">
-                        Tasks Completed
-                      </p>
-                      <p className="text-xl font-black text-gray-700 mt-1">
-                        1,248
-                      </p>
-                    </div>
-                    <div className="p-3 bg-gray-50 rounded-lg border border-[#dde3e0]">
-                      <p className="text-[10px] font-bold text-gray-400 uppercase">
-                        Avg. Rating
-                      </p>
-                      <div className="flex items-center gap-1 mt-1 text-orange-500">
-                        <p className="text-xl font-black">4.8</p>
-                        <span className="material-symbols-outlined text-base">
-                          star
+                    </section>
+
+                    <section className="space-y-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="material-symbols-outlined text-gray-400 text-sm">
+                          trending_up
                         </span>
+                        <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500">
+                          Performance &amp; Details
+                        </h3>
                       </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="p-3 bg-gray-50 rounded-lg border border-[#dde3e0]">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase">
+                            Tasks Completed
+                          </p>
+                          <p className="text-xl font-black text-gray-700 mt-1">
+                            1,248
+                          </p>
+                        </div>
+                        <div className="p-3 bg-gray-50 rounded-lg border border-[#dde3e0]">
+                          <p className="text-[10px] font-bold text-gray-400 uppercase">
+                            Avg. Rating
+                          </p>
+                          <div className="flex items-center gap-1 mt-1 text-orange-500">
+                            <p className="text-xl font-black">4.8</p>
+                            <span className="material-symbols-outlined text-base">
+                              star
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
+                        <p className="text-xs font-bold text-primary uppercase mb-2">
+                          Attendance Summary
+                        </p>
+                        <div className="flex items-center justify-between text-xs mb-1">
+                          <span className="text-gray-600">
+                            Month: October 2023
+                          </span>
+                          <span className="font-bold">96%</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-1.5">
+                          <div
+                            className="bg-primary h-1.5 rounded-full"
+                            style={{ width: "96%" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+
+                  <div className="p-6 border-t border-[#dde3e0] bg-gray-50/50 space-y-3">
+                    <button className="w-full h-11 bg-primary text-white font-bold rounded-lg shadow-sm hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
+                      <span className="material-symbols-outlined text-lg">
+                        save
+                      </span>
+                      <span>Save Changes</span>
+                    </button>
+                    <div className="flex gap-3">
+                      <button
+                        onClick={closeEdit}
+                        className="flex-1 h-10 bg-white border border-[#dde3e0] text-gray-600 font-bold text-sm rounded-lg hover:bg-gray-50 transition-all"
+                      >
+                        Cancel
+                      </button>
+                      <button className="flex-1 h-10 text-red-600 font-bold text-sm hover:bg-red-50 rounded-lg transition-all">
+                        Deactivate Account
+                      </button>
                     </div>
                   </div>
-                  <div className="p-4 bg-primary/5 rounded-lg border border-primary/10">
-                    <p className="text-xs font-bold text-primary uppercase mb-2">
-                      Attendance Summary
-                    </p>
-                    <div className="flex items-center justify-between text-xs mb-1">
-                      <span className="text-gray-600">Month: October 2023</span>
-                      <span className="font-bold">96%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-1.5">
-                      <div
-                        className="bg-primary h-1.5 rounded-full"
-                        style={{ width: "96%" }}
-                      ></div>
-                    </div>
-                  </div>
-                </section>
+                </DialogPanel>
               </div>
-              {/* Drawer Footer Actions */}
-              <div className="p-6 border-t border-[#dde3e0] bg-gray-50/50 space-y-3">
-                <button className="w-full h-11 bg-primary text-white font-bold rounded-lg shadow-sm hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
-                  <span className="material-symbols-outlined text-lg">
-                    save
-                  </span>
-                  <span>Save Changes</span>
-                </button>
-                <div className="flex gap-3">
-                  <button className="flex-1 h-10 bg-white border border-[#dde3e0] text-gray-600 font-bold text-sm rounded-lg hover:bg-gray-50 transition-all">
-                    Cancel
-                  </button>
-                  <button className="flex-1 h-10 text-red-600 font-bold text-sm hover:bg-red-50 rounded-lg transition-all">
-                    Deactivate Account
-                  </button>
-                </div>
-              </div>
-            </aside>
+            </Dialog>
           </>
         )}
         {AdminDashboard === "report" && (
           <main className="flex-1 overflow-y-auto bg-background-light pl-60">
             <div className="max-w-300 mx-auto p-8">
-              {/* PageHeading Component */}
               <div className="mb-8">
                 <h1 className="text-[#121614] text-4xl font-black leading-tight tracking-[-0.033em]">
                   Reports &amp; Analytics
