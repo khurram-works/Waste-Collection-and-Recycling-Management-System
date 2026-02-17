@@ -1,31 +1,3 @@
-// import React from 'react';
-// import { Dialog, DialogPanel } from '@headlessui/react';
-
-// const RequestDrawer = ({ isOpen, onClose, request }) => (
-//   <Dialog open={isOpen} onClose={onClose} className="relative z-50">
-//     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
-//     <div className="fixed inset-0 flex justify-end">
-//       <DialogPanel className="w-96 bg-white h-full shadow-2xl flex flex-col transform transition duration-300 ease-in-out data-closed:translate-x-full">
-//         {/* Drawer content – copy from your original code inside the Dialog for request */}
-//         {/* Use request prop to populate data */}
-//         <div className="p-6 border-b flex justify-between">
-//           <div>
-//             <h2 className="text-xl font-black">Manage Request</h2>
-//             <p className="text-primary font-bold text-sm">{request.id}</p>
-//           </div>
-//           <button onClick={onClose} aria-label="Close" className="p-2 rounded-full hover:bg-gray-100">
-//             <span className="material-symbols-outlined">close</span>
-//           </button>
-//         </div>
-//         {/* ... rest */}
-//       </DialogPanel>
-//     </div>
-//   </Dialog>
-// );
-
-// export default RequestDrawer;
-
-
 import React from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 
