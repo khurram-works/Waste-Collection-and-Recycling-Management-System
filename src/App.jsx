@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 import './App.css'
 import SmartWastePlatform from './pages/landingpage'
 import SmartWasteLogin from './pages/loginpage'

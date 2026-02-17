@@ -1,11 +1,10 @@
 import React from 'react';
-import Header from './landingpagecomponents/header';
-import Hero from './landingpagecomponents/hero';
-import ProcessSection from './landingpagecomponents/processsection';
-import WasteTypesSection from './landingpagecomponents/wastetypessection';
-import CallToAction from './landingpagecomponents/calltoaction';
-import Footer from './landingpagecomponents/footer';
-import { useNavigate } from "react-router-dom";
+import Header from './landingpagecomponents/header.jsx';
+import Hero from './landingpagecomponents/hero.jsx';
+import ProcessSection from './landingpagecomponents/processsection.jsx';
+import WasteTypesSection from './landingpagecomponents/wastetypessection.jsx';
+import CallToAction from './landingpagecomponents/calltoaction.jsx';
+import Footer from './landingpagecomponents/footer.jsx';
 
 
 const SmartWastePlatform = () => {
