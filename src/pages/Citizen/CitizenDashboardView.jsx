@@ -1,6 +1,6 @@
 import React from "react";
 
-const CitizenDashboardView = () => {
+const CitizenDashboardView = ({ currentview, setCurrentView }) => {
   return (
     <main className="flex-1 overflow-y-auto bg-background-light p-8">
       <div className="max-w-275 mx-auto space-y-8">
@@ -40,7 +40,7 @@ const CitizenDashboardView = () => {
         {/* Primary Action Card */}
         <div className="flex flex-col xl:flex-row items-stretch rounded-xl shadow-md bg-white border border-[#dde3e0] overflow-hidden">
           <div
-            className="w-full xl:w-1/3 h-48 xl:h-full bg-center bg-no-repeat bg-cover"
+            className="w-full xl:w-1/3 min-h-48 xl:h-full bg-center bg-cover bg-no-repeat"
             style={{
               backgroundImage:
                 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCV2ZwaK3eYezr1BmL33Rz-6IIsIfJVt3fXhW6ZgNkaVOu2jnIPm1RGui0yHeoDIl8EH9DohH6qxGpJO6X38SeEmOZgvZIMOjNyAzyLOYZi59DoVjmUpCmSHVpUFUaB-GXB5EMxQzYd_Ci6loiEEtwwski_2HDf6GKBTOynuogtDVcFOE_x0rjgcrDuBLHpVNh1SHLZOldhWS_Wf4lI6FgJFnNiDhm0XqymgMa3tx7cU23d56AWT87mmHWn5vkDCmf6dizJATpw")',
@@ -58,10 +58,7 @@ const CitizenDashboardView = () => {
             </div>
             <button
               className="flex items-center gap-2 cursor-pointer rounded-lg h-12 px-6 bg-primary text-white text-base font-bold transition-transform active:scale-95 shadow-lg shadow-primary/20"
-              onClick={() => {
-                // You can either navigate via state or use a link
-                // We'll rely on the sidebar navigation, but if you want a direct link, you'd need a setter prop
-              }}
+              onClick={() => setCurrentView("Request")}
             >
               <span className="material-symbols-outlined text-sm">add</span>
               <span>Submit a New Pickup Request</span>
@@ -73,7 +70,7 @@ const CitizenDashboardView = () => {
         <div className="bg-white rounded-xl border border-[#dde3e0] shadow-sm overflow-hidden">
           <div className="px-6 py-5 border-b border-[#dde3e0] flex justify-between items-center">
             <h2 className="text-[#121614] text-xl font-bold">Recent Pickup Requests</h2>
-            <button className="text-primary text-sm font-bold hover:underline">
+            <button onClick={() => setCurrentView("RequestStatus")} className="text-primary text-sm font-bold hover:underline">
               View All My Requests
             </button>
           </div>

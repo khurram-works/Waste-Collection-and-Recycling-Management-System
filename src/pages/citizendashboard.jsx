@@ -31,11 +31,11 @@ export default function CitizenDashboard() {
 
           {/* Main Content Area */}
           <div className="flex-1 overflow-y-auto">
-            {citizendashboard === "Dashboard" && <CitizenDashboardView />}
+            {citizendashboard === "Dashboard" && <CitizenDashboardView currentView={citizendashboard} setCurrentView={setCitizendashboard}/>}
             {citizendashboard === "Request" && <CitizenRequestView />}
             {citizendashboard === "RequestStatus" && <CitizenRequestStatusView />}
             {citizendashboard === "Earnings" && <CitizenEarningsView />}
-            {citizendashboard === "Guidelines" && <CitizenGuidelinesView />}
+            {citizendashboard === "Guidelines" &&  <CitizenGuidelinesView setCurrentView={setCitizendashboard} />}
             {citizendashboard === "Profile" && <CitizenProfileView user={user} />}
           </div>
         </div>

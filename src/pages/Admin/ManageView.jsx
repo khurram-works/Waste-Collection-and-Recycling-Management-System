@@ -97,10 +97,10 @@ const ManageView = () => {
           <div className="p-4 grid grid-cols-12 gap-4 items-center">
             {/* Search */}
             <div className="col-span-3">
-              <label className="flex items-stretch bg-background-light rounded-lg border border-[#dde3e0] focus-within:border-[#2e8a57] px-3 h-10 transition-all">
+              <label className="flex items-stretch bg-background-light rounded-lg border-2 border-[#dde3e0] focus-within:border-[#2e8a57] px-3 h-10 transition-all">
                 <span className="material-symbols-outlined text-[#6a8174] self-center mr-2">search</span>
                 <input
-                  className="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-[#6a8174]"
+                  className="bg-transparent border-none focus:outline-none text-sm w-full placeholder:text-[#6a8174]"
                   placeholder="Search ID, citizen or address..."
                 />
               </label>

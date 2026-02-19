@@ -7,7 +7,9 @@ const Sidebar = ({ currentView, onViewChange }) => {
     { key: "manage", label: "Request Management", icon: "task_alt" },
     { key: "worker", label: "Worker Management", icon: "engineering" },
     { key: "report", label: "Reports", icon: "analytics" },
-    { key: "setting", label: "System Settings", icon: "settings" },
+    { key: "audit", label: "Audit Log", icon: "history_edu" },
+    
+    
   ];
 
   return (
@@ -44,9 +46,7 @@ const Sidebar = ({ currentView, onViewChange }) => {
           </span>
           <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
         </div>
-        <button className="w-full py-2 bg-primary text-white text-xs font-bold rounded-lg uppercase tracking-wide">
-          System Active
-        </button>
+        
       </div>
     </aside>
   );

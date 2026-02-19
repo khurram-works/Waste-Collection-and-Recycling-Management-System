@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddWorkerDialog from "./AddWorkerDialog";
 
-const DashboardView = () => {
+const DashboardView = ({ onViewChange }) => {
   const [isAddWorkerOpen, setIsAddWorkerOpen] = useState(false);
 
   return (
@@ -182,7 +182,6 @@ const DashboardView = () => {
                 Volume by categorization
               </p>
             </div>
-            <button className="text-primary text-sm font-bold">Settings</button>
           </div>
           <div className="flex flex-col md:flex-row items-center gap-8 py-2">
             <div className="relative flex items-center justify-center w-40 h-40">
@@ -266,7 +265,7 @@ const DashboardView = () => {
       <div className="bg-white rounded-xl border border-[#dde3e0] shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-[#dde3e0] flex justify-between items-center">
           <h3 className="text-[#121614] text-lg font-bold">Recent Activity</h3>
-          <button className="text-primary text-sm font-bold flex items-center gap-1">
+          <button onClick={() => onViewChange("audit")} className="text-primary text-sm font-bold flex items-center gap-1">
             View Audit Log{" "}
             <span className="material-symbols-outlined text-sm">
               arrow_forward

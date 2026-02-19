@@ -30,7 +30,6 @@ const CitizenSidebar = ({ currentView, setCurrentView }) => {
                   : "bg-white text-[#121614] hover:bg-background-light"
               }`}
               onClick={() => setCurrentView(item.id)}
-              href="#"
             >
               <span className="material-symbols-outlined">{item.icon}</span>
               <p className="text-sm font-medium">{item.label}</p>

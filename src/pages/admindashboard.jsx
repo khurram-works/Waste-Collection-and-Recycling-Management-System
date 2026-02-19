@@ -5,17 +5,18 @@ import DashboardView from './Admin/DashboardView';
 import ManageView from './Admin/ManageView';
 import WorkerView from './Admin/WorkerView';
 import ReportView from './Admin/ReportView';
+import AuditLogs from './Admin/AuditLogs';
 
 const admindashboard = () => {
   const [currentView, setCurrentView] = useState('admin');
 
   // Map view keys to components
   const views = {
-    admin: <DashboardView />,
+    admin: <DashboardView onViewChange={setCurrentView} />,
     manage: <ManageView />,
     worker: <WorkerView />,
     report: <ReportView />,
-    setting: <div className="lg:ml-64 p-6 min-h-screen">Settings Page (Coming Soon)</div>,
+    audit: <AuditLogs />,
   };
 
   return (

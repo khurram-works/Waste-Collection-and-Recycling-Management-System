@@ -14,8 +14,8 @@ const SmartWastePlatform = () => {
     <div className="font-display bg-background-light dark:bg-background-dark text-[#121614] dark:text-white transition-colors duration-200 min-h-screen">
       <Header />
       <Hero />
-      <ProcessSection />
       <WasteTypesSection />
+      <ProcessSection />
       <CallToAction />
       <Footer />
     </div>
